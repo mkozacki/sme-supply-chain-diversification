@@ -41,3 +41,45 @@ KMU verfolgen eine China+1-Strategie, bei der China als Lieferant erhalten bleib
 ## Methodology
 
 Qualitative, explorative Studie mit 10–15 semistrukturierten Interviews mit KMU-Entscheidern (Einkaufsleiter, SC-Manager, Geschäftsführer) im DACH-Raum. Auswertung mittels thematischer Analyse (Braun & Clarke, 2006) unter Verwendung von ATLAS.ti.
+
+## Variables
+
+### Dependent variable (Y)
+
+| Construct | Data Item(s) | Formula |
+|-----------|-------------|---------|
+| RoA | IB, AT | IB / AT |
+
+### Independent variable (X)
+
+| Construct | Data Item(s) | Formula |
+|-----------|-------------|---------|
+| Capital Intensity | CAPX, AT | CAPX / AT |
+
+### Controls
+
+| Construct | Data Item(s) | Formula |
+|-----------|-------------|---------|
+| Firm Size | AT | log(AT) |
+| Leverage | DLTT, DLC, SEQ | (DLTT + DLC) / SEQ |
+| Firm Age | FYEAR | FYEAR - min(FYEAR) per firm |
+| Cash Flow | IBC, DP, AT | (IBC + DP) / AT |
+| Industry | SIC | categorical fixed effect |
+
+### Additional variables pulled
+
+REVT, EBIT, EBITDA, OIADP, CAPX, XSGA, COGS, DLTR, DLTIS, CEQ, LT, LCT, CHE, CH, PPENT, INVT, ACT, EMP, SALE, CONM, FIC, CURCD, XRD
+
+## Data
+
+| Item | Detail |
+|--------------|--------------------------------------|
+| Source | WRDS / Compustat Global |
+| Table | comp_global_daily.g_funda |
+| Downloaded | 2026-05-29 |
+| License | WRDS subscriber agreement |
+| Fiscal years | 2015–2024 |
+| Raw rows | 338,464 |
+| Clean rows | 70,708 |
+| Firms | 10,703 |
+| Countries | 103 |
