@@ -5,42 +5,44 @@
 
 ## Research Question
 
-Welche Faktoren treiben bzw. hemmen die Lieferkettendiversifizierung von KMU im DACH-Raum weg von China, und welche alternativen Sourcing-Regionen werden bevorzugt?
+Welche Firmencharakteristiken beeinflussen die Performance-Resilienz europäischer KMU während Perioden globaler Lieferkettenstörungen (2020–2022)?
 
 ## Theoretical Framework
 
 Die Studie kombiniert zwei komplementäre theoretische Perspektiven:
 
-**Dynamic Capabilities (Teece et al., 1997; Teece, 2007):** Der DCA erklärt, *wie* KMU den Diversifizierungsprozess gestalten. Die drei Mikrofundamente — Sensing (geopolitische Risiken erkennen), Seizing (Ressourcen mobilisieren und Lieferantenentscheidungen treffen) und Reconfiguring (bestehende Lieferkettenstrukturen neu konfigurieren) — strukturieren die Analyse der Diversifizierungsfähigkeiten von KMU.
+**Dynamic Capabilities (Teece et al., 1997; Teece, 2007):** KMU benötigen Sensing-, Seizing- und Reconfiguring-Fähigkeiten, um auf Lieferkettenstörungen zu reagieren. Finanzielle Ressourcen (Cash Holdings) ermöglichen Seizing — die schnelle Mobilisierung von Ressourcen bei Störungen. Hohe Kapitalintensität erhöht die Asset Specificity und erschwert Reconfiguring.
 
-**Transaction Cost Economics (Williamson, 1989):** Die TCE erklärt, *wann und warum* KMU diversifizieren. Geopolitische Unsicherheit erhöht die Transaktionskosten der China-Beschaffung (Exportkontrollrisiken, regulatorische Komplexität, Reputationsrisiken). Wenn diese Risikozuschläge den Produktionskostenvorteil übersteigen, wird der Wechsel zu alternativen Lieferanten ökonomisch rational — der sogenannte „Kipppunkt" der Diversifizierung.
+**Transaction Cost Economics (Williamson, 1989):** Lieferkettenstörungen erhöhen die Transaktionskosten. Kapitalintensive Firmen tragen höhere Switching Costs, da spezialisierte Assets schwerer umzuwidmen sind. Hoher Leverage reduziert die finanzielle Flexibilität und erhöht Monitoring-Kosten in Krisenzeiten.
 
 ## Hypotheses and Operationalization
 
-### H1: Erfahrene Lieferkettenstörungen erhöhen die Diversifizierungsbereitschaft
+### H1: Capital Intensity und Performance während Lieferkettenstörungen
 
-KMU, die bereits konkrete Lieferkettenstörungen erfahren haben, sind eher bereit, ihre Beschaffung von China zu diversifizieren, als KMU ohne solche Erfahrungen.
+Kapitalintensive KMU zeigen einen stärkeren Performance-Rückgang während der Störungsperiode (2020–2022) als weniger kapitalintensive KMU.
 
-- **UV (Sensing):** Anzahl und Schwere erfahrener Störungen (COVID-19-Lockdowns, Rote-Meer-Krise, chinesische Exportkontrollen); erfasst über semistrukturierte Interviews (Selbstauskunft der Befragten).
-- **AV:** Diversifizierungsbereitschaft bzw. bereits eingeleitete Diversifizierungsmaßnahmen (kategorisiert als: keine Maßnahmen, Planung, teilweise Umsetzung, vollständige Umsetzung).
+- **Logik (TCE):** Hohe Asset Specificity erhöht die Transaktionskosten bei Störungen, da spezialisierte physische Assets schwerer anpassbar sind.
+- **Y:** RoA (IB / AT)
+- **X:** Capital Intensity (CAPX / AT) × Disruption-Dummy
+- **Erwartetes Vorzeichen:** negativ (kapitalintensive Firmen performen schlechter während Störungen)
 
-### H2: Ressourcenknappheit als zentrale Barriere
+### H2: Cash Holdings als Resilienzfaktor
 
-Begrenzte finanzielle und personelle Ressourcen stellen die zentrale Barriere für die Lieferkettendiversifizierung von KMU dar.
+KMU mit höheren Cash Holdings zeigen eine stabilere Performance während der Störungsperiode.
 
-- **UV (Seizing/Reconfiguring):** Verfügbare Ressourcen für Diversifizierung — Budget für Lieferantenaudits, dediziertes Personal für Supply-Chain-Management, Managementkapazität für parallele Beschaffungsstrukturen.
-- **AV:** Umsetzungsgrad der Diversifizierung; Diskrepanz zwischen erkanntem Risiko (Sensing) und tatsächlicher Handlung (Seizing/Reconfiguring).
+- **Logik (Dynamic Capabilities — Seizing):** Liquiditätsreserven ermöglichen schnelle Reaktion auf Störungen — z.B. Wechsel zu alternativen Lieferanten, Aufbau von Lagerbeständen.
+- **Y:** RoA (IB / AT)
+- **X:** Cash Holdings (CHE / AT) × Disruption-Dummy
+- **Erwartetes Vorzeichen:** positiv (höhere Cash Holdings stabilisieren Performance)
 
-### H3: China+1 als dominante Strategie
+### H3: Leverage verstärkt negative Disruption-Effekte
 
-KMU verfolgen eine China+1-Strategie, bei der China als Lieferant erhalten bleibt, aber durch Nearshoring (CEE: Polen, Tschechien, Rumänien) oder Friendshoring (Vietnam, Indien) ergänzt wird.
+Der negative Performance-Effekt von hohem Leverage ist während der Störungsperiode stärker als in normalen Jahren.
 
-- **UV:** Produktkomplexität und Verfügbarkeit alternativer Lieferanten.
-- **AV:** Gewählte Sourcing-Region (kategorisiert als: Backshoring/DACH, Nearshoring/CEE, Friendshoring/Asien) und Strategietyp (vollständiger Wechsel vs. China+1 vs. keine Veränderung).
-
-## Methodology
-
-Qualitative, explorative Studie mit 10–15 semistrukturierten Interviews mit KMU-Entscheidern (Einkaufsleiter, SC-Manager, Geschäftsführer) im DACH-Raum. Auswertung mittels thematischer Analyse (Braun & Clarke, 2006) unter Verwendung von ATLAS.ti.
+- **Logik (TCE + Dynamic Capabilities — Reconfiguring):** Hohe Verschuldung reduziert die finanzielle Flexibilität für Reconfiguring und erhöht Monitoring-Kosten in Krisenzeiten.
+- **Y:** RoA (IB / AT)
+- **X:** Leverage (DLTT / AT) × Disruption-Dummy
+- **Erwartetes Vorzeichen:** negativ (Leverage schadet stärker während Störungen)
 
 ## Variables
 
@@ -50,21 +52,31 @@ Qualitative, explorative Studie mit 10–15 semistrukturierten Interviews mit KM
 |-----------|-------------|---------|
 | RoA | IB, AT | IB / AT |
 
-### Independent variable (X)
+### Independent variables (X)
 
 | Construct | Data Item(s) | Formula |
 |-----------|-------------|---------|
 | Capital Intensity | CAPX, AT | CAPX / AT |
+| Cash Holdings | CHE, AT | CHE / AT |
+| Leverage | DLTT, AT | DLTT / AT |
+| Disruption | FYEAR | 1 if 2020 <= FYEAR <= 2022, else 0 |
+
+### Interaction terms
+
+| Term | Formula | Tests |
+|------|---------|-------|
+| CapInt × Disruption | capital_intensity × disruption | H1 |
+| Cash × Disruption | cash_holdings × disruption | H2 |
+| Leverage × Disruption | leverage × disruption | H3 |
 
 ### Controls
 
 | Construct | Data Item(s) | Formula |
 |-----------|-------------|---------|
 | Firm Size | AT | log(AT) |
-| Leverage | DLTT, DLC, SEQ | (DLTT + DLC) / SEQ |
 | Firm Age | FYEAR | FYEAR - min(FYEAR) per firm |
 | Cash Flow | IBC, DP, AT | (IBC + DP) / AT |
-| Industry | SIC | categorical fixed effect |
+| Industry | SICH | categorical fixed effect |
 
 ### Additional variables pulled
 
@@ -80,6 +92,6 @@ REVT, EBIT, EBITDA, OIADP, CAPX, XSGA, COGS, DLTR, DLTIS, CEQ, LT, LCT, CHE, CH,
 | License | WRDS subscriber agreement |
 | Fiscal years | 2015–2024 |
 | Raw rows | 338,464 |
-| Clean rows | 70,708 |
+| Clean rows | 70,718 |
 | Firms | 10,703 |
 | Countries | 103 |
