@@ -5,44 +5,31 @@
 
 ## Research Question
 
-Welche Firmencharakteristiken beeinflussen die Performance-Resilienz europäischer KMU während Perioden globaler Lieferkettenstörungen (2020–2022)?
+Wie beeinflussen Capital Intensity und Cash Holdings die Performance europäischer KMU?
 
 ## Theoretical Framework
 
-Die Studie kombiniert zwei komplementäre theoretische Perspektiven:
+**Resource-Based View (Barney, 1991) / Transaction Cost Economics (Williamson, 1989):** Hohe Investitionen in physische Assets (Capital Intensity) binden Ressourcen und reduzieren die Flexibilität von KMU. Die hohen Fixkosten erhöhen das operative Risiko und die Transaktionskosten, was sich negativ auf die Performance auswirkt.
 
-**Dynamic Capabilities (Teece et al., 1997; Teece, 2007):** KMU benötigen Sensing-, Seizing- und Reconfiguring-Fähigkeiten, um auf Lieferkettenstörungen zu reagieren. Finanzielle Ressourcen (Cash Holdings) ermöglichen Seizing — die schnelle Mobilisierung von Ressourcen bei Störungen. Hohe Kapitalintensität erhöht die Asset Specificity und erschwert Reconfiguring.
+**Dynamic Capabilities (Teece et al., 1997):** Liquiditätsreserven (Cash Holdings) ermöglichen es KMU, schnell auf Chancen zu reagieren (Seizing). Firmen mit höherer Liquidität können flexibler agieren und Investitionsmöglichkeiten wahrnehmen, was sich positiv auf die Performance auswirkt.
 
-**Transaction Cost Economics (Williamson, 1989):** Lieferkettenstörungen erhöhen die Transaktionskosten. Kapitalintensive Firmen tragen höhere Switching Costs, da spezialisierte Assets schwerer umzuwidmen sind. Hoher Leverage reduziert die finanzielle Flexibilität und erhöht Monitoring-Kosten in Krisenzeiten.
+## Hypotheses
 
-## Hypotheses and Operationalization
+### H1: Capital Intensity und Performance
 
-### H1: Capital Intensity und Performance während Lieferkettenstörungen
+Höhere Capital Intensity führt zu niedrigerer Performance bei KMU.
 
-Kapitalintensive KMU zeigen einen stärkeren Performance-Rückgang während der Störungsperiode (2020–2022) als weniger kapitalintensive KMU.
-
-- **Logik (TCE):** Hohe Asset Specificity erhöht die Transaktionskosten bei Störungen, da spezialisierte physische Assets schwerer anpassbar sind.
 - **Y:** RoA (IB / AT)
-- **X:** Capital Intensity (CAPX / AT) × Disruption-Dummy
-- **Erwartetes Vorzeichen:** negativ (kapitalintensive Firmen performen schlechter während Störungen)
+- **X:** Capital Intensity (CAPX / AT)
+- **Erwartetes Vorzeichen:** negativ
 
-### H2: Cash Holdings als Resilienzfaktor
+### H2: Cash Holdings und Performance
 
-KMU mit höheren Cash Holdings zeigen eine stabilere Performance während der Störungsperiode.
+Höhere Cash Holdings führen zu besserer Performance bei KMU.
 
-- **Logik (Dynamic Capabilities — Seizing):** Liquiditätsreserven ermöglichen schnelle Reaktion auf Störungen — z.B. Wechsel zu alternativen Lieferanten, Aufbau von Lagerbeständen.
 - **Y:** RoA (IB / AT)
-- **X:** Cash Holdings (CHE / AT) × Disruption-Dummy
-- **Erwartetes Vorzeichen:** positiv (höhere Cash Holdings stabilisieren Performance)
-
-### H3: Leverage verstärkt negative Disruption-Effekte
-
-Der negative Performance-Effekt von hohem Leverage ist während der Störungsperiode stärker als in normalen Jahren.
-
-- **Logik (TCE + Dynamic Capabilities — Reconfiguring):** Hohe Verschuldung reduziert die finanzielle Flexibilität für Reconfiguring und erhöht Monitoring-Kosten in Krisenzeiten.
-- **Y:** RoA (IB / AT)
-- **X:** Leverage (DLTT / AT) × Disruption-Dummy
-- **Erwartetes Vorzeichen:** negativ (Leverage schadet stärker während Störungen)
+- **X:** Cash Holdings (CHE / AT)
+- **Erwartetes Vorzeichen:** positiv
 
 ## Variables
 
@@ -58,29 +45,15 @@ Der negative Performance-Effekt von hohem Leverage ist während der Störungsper
 |-----------|-------------|---------|
 | Capital Intensity | CAPX, AT | CAPX / AT |
 | Cash Holdings | CHE, AT | CHE / AT |
-| Leverage | DLTT, AT | DLTT / AT |
-| Disruption | FYEAR | 1 if 2020 <= FYEAR <= 2022, else 0 |
-
-### Interaction terms
-
-| Term | Formula | Tests |
-|------|---------|-------|
-| CapInt × Disruption | capital_intensity × disruption | H1 |
-| Cash × Disruption | cash_holdings × disruption | H2 |
-| Leverage × Disruption | leverage × disruption | H3 |
 
 ### Controls
 
 | Construct | Data Item(s) | Formula |
 |-----------|-------------|---------|
 | Firm Size | AT | log(AT) |
+| Leverage | DLTT, AT | DLTT / AT |
 | Firm Age | FYEAR | FYEAR - min(FYEAR) per firm |
 | Cash Flow | IBC, DP, AT | (IBC + DP) / AT |
-| Industry | SICH | categorical fixed effect |
-
-### Additional variables pulled
-
-REVT, EBIT, EBITDA, OIADP, CAPX, XSGA, COGS, DLTR, DLTIS, CEQ, LT, LCT, CHE, CH, PPENT, INVT, ACT, EMP, SALE, CONM, FIC, CURCD, XRD
 
 ## Data
 
