@@ -41,8 +41,7 @@ Höhere Cash Holdings führen zu besserer Performance bei KMU.
 | CapInt × Cash | — | capital_intensity × cash_holdings | Interaction |
 | Firm Size | at | log(at) | Control |
 | Leverage | dltt, at | dltt / at | Control |
-| Cash Flow | ibc, dp, at | (ibc + dp) / at | Control |
-| Firm Age | fyear | fyear - min(fyear) per firm | Control |
+
 
 ## Data
 
