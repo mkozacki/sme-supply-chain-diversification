@@ -33,27 +33,16 @@ Höhere Cash Holdings führen zu besserer Performance bei KMU.
 
 ## Variables
 
-### Dependent variable (Y)
-
-| Construct | Data Item(s) | Formula |
-|-----------|-------------|---------|
-| RoA | IB, AT | IB / AT |
-
-### Independent variables (X)
-
-| Construct | Data Item(s) | Formula |
-|-----------|-------------|---------|
-| Capital Intensity | CAPX, AT | CAPX / AT |
-| Cash Holdings | CHE, AT | CHE / AT |
-
-### Controls
-
-| Construct | Data Item(s) | Formula |
-|-----------|-------------|---------|
-| Firm Size | AT | log(AT) |
-| Leverage | DLTT, AT | DLTT / AT |
-| Firm Age | FYEAR | FYEAR - min(FYEAR) per firm |
-| Cash Flow | IBC, DP, AT | (IBC + DP) / AT |
+| Variable | Field(s) | Formula | Role |
+|-------------------|----------|----------------------|----------------|
+| RoA | ib, at | ib / at | Dependent (Y) |
+| Capital Intensity | capx, at | capx.fillna(0) / at | Independent H1 |
+| Cash Holdings | che, at | che.fillna(0) / at | Independent H2 |
+| CapInt × Cash | — | capital_intensity × cash_holdings | Interaction |
+| Firm Size | at | log(at) | Control |
+| Leverage | dltt, at | dltt / at | Control |
+| Cash Flow | ibc, dp, at | (ibc + dp) / at | Control |
+| Firm Age | fyear | fyear - min(fyear) per firm | Control |
 
 ## Data
 
