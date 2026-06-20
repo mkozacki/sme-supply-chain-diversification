@@ -8,5 +8,20 @@ tasks:
     deps: [pull]
     cmds:
       - python code/02_clean.py
-  all:
+  descriptives:
     deps: [clean]
+    cmds:
+      - python code/03_descriptives.py
+  regression:
+    deps: [descriptives]
+    cmds:
+      - python code/04_regression.py
+  render:
+    desc: "Render research_note.qmd to PDF via Quarto"
+    cmds:
+      - quarto render research_note.qmd
+  all:
+    desc: "Full pipeline — analysis + PDF"
+    deps: [regression]
+    cmds:
+      - quarto render research_note.qmd

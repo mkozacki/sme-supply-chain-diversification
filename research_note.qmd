@@ -1,0 +1,158 @@
+---
+title: "Capital Intensity, Cash Holdings, and SME Performance: Evidence from Listed Firms in Compustat Global"
+author: "Marcel Kozacki | ExInt II | WU Vienna | SS 2026"
+subtitle: "GitHub: https://github.com/mkozacki/sme-supply-chain-diversification"
+date: "June 2026"
+bibliography: references/Meine Bibliothek.bib
+csl: references/apa.csl
+format:
+  pdf:
+    toc: false
+    number-sections: true
+    geometry: margin=2.5cm
+    fontsize: 11pt
+    linestretch: 1.3
+execute:
+  eval: true
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+#| label: setup
+import pandas as pd
+import numpy as np
+
+summary = pd.read_csv('output/tables/summary_statistics.csv', index_col=0)
+results = pd.read_csv('output/tables/regression_results.csv', index_col=0)
+panel = pd.read_parquet('data/processed/panel_with_vars.parquet')
+
+n_obs = int(panel.shape[0])
+n_firms = int(panel['gvkey'].nunique())
+n_countries = int(panel['loc'].nunique())
+year_min = int(panel['fyear'].min())
+year_max = int(panel['fyear'].max())
+
+b_capint = round(results.loc['capital_intensity', 'FE'], 4)
+p_capint = round(results.loc['capital_intensity', 'FE_p'], 4)
+b_cash = round(results.loc['cash_holdings', 'FE'], 4)
+p_cash = round(results.loc['cash_holdings', 'FE_p'], 4)
+b_interact = round(results.loc['capint_x_cash', 'FE_interact'], 4)
+p_interact = round(results.loc['capint_x_cash', 'FE_int_p'], 4)
+r2_ols = round(float(summary.loc['RoA (ib/at)', 'count']), 0)
+```
+
+# Introduction
+
+Small and medium-sized enterprises (SMEs) constitute over 99% of all firms in the European Union and generate the majority of private-sector employment. Despite their economic significance, SMEs face persistent challenges in allocating scarce resources effectively. Two fundamental resource allocation decisions — investment in physical assets and the retention of liquid reserves — have direct consequences for firm performance, yet their effects on SMEs remain insufficiently understood [@beckFinancialLegalConstraints2005; @laroccaCapitalStructureDecisions2011].
+
+The existing literature on capital structure and firm performance has predominantly focused on large, publicly listed corporations. Studies suggest that capital-intensive firms face higher fixed costs and reduced operational flexibility, which can negatively affect profitability [@williamsonChapter3Transaction1989]. Similarly, research on corporate cash holdings has examined how liquidity reserves affect firm value and investment behavior, primarily in the context of large firms [@oplerDeterminantsImplicationsCorporate1999; @batesWhyUSFirms2009]. However, SMEs differ fundamentally from large firms in their resource constraints, governance structures, and strategic flexibility, making direct extrapolation problematic [@audretschDoesFirmSize2002].
+
+This research note addresses this gap by examining how capital intensity and cash holdings affect the performance of SMEs. Using a panel of `{python} f"{n_obs:,}"` firm-year observations from `{python} f"{n_firms:,}"` unique SMEs across `{python} f"{n_countries}"` countries over the period `{python} f"{year_min}"`–`{python} f"{year_max}"`, this study employs two-way fixed effects regression to test two theory-driven hypotheses.
+
+> **Research question:** How do capital intensity and cash holdings affect the performance of SMEs?
+
+# Theory and Hypotheses
+
+## Capital Intensity and Firm Performance
+
+The Resource-Based View posits that firms achieve competitive advantage through the deployment of valuable, rare, and inimitable resources [@barneyFirmResourcesSustained1991]. Physical assets such as machinery and equipment represent tangible resources that can generate productive capacity. However, Transaction Cost Economics highlights that high asset specificity — the degree to which assets are specialized to a particular use — increases switching costs and reduces flexibility [@williamsonChapter3Transaction1989].
+
+For SMEs, high capital intensity presents a particular challenge. Capital-intensive operations require sustained investment in fixed assets, which binds financial resources that could otherwise be deployed for adaptation or growth. The high fixed cost structure increases operating leverage, making profitability more sensitive to demand fluctuations. Furthermore, specialized physical assets are difficult to redeploy when market conditions change, effectively locking SMEs into specific production configurations. This rigidity is especially problematic for SMEs, which lack the diversified revenue streams of larger firms to absorb demand shocks [@beckFinancialLegalConstraints2005].
+
+> **H1:** Higher capital intensity leads to lower firm performance (RoA) among SMEs.
+> *(Test: expected negative coefficient on capital intensity in TWFE model)*
+
+## Cash Holdings and Firm Performance
+
+The Dynamic Capabilities framework emphasizes the importance of sensing opportunities, seizing them through resource mobilization, and reconfiguring organizational structures [@teeceExplicatingDynamicCapabilities2007; @teeceDynamicCapabilitiesStrategic1997]. Cash holdings represent a critical enabler of the seizing dimension: firms with adequate liquidity can act quickly on investment opportunities and respond to competitive threats without resorting to costly external financing.
+
+The Pecking Order Theory further supports this mechanism [@myersCorporateFinancingInvestment1984]. SMEs face particularly severe information asymmetries in capital markets, making external financing costly and sometimes unavailable. Internal funds therefore represent the most accessible source of financing for investment and adaptation. Empirical evidence confirms that cash holdings are particularly valuable for financially constrained firms [@denisFinancialConstraintsInvestment2010], and that persistent large cash reserves do not hinder but rather support firm performance [@mikkelsonPersistentLargeCash2003].
+
+> **H2:** Higher cash holdings lead to higher firm performance (RoA) among SMEs.
+> *(Test: expected positive coefficient on cash holdings in TWFE model)*
+
+# Data and Method
+
+## Sample
+
+The data are drawn from the Compustat Global Fundamentals Annual database, accessed via WRDS. The sample comprises `{python} f"{n_obs:,}"` firm-year observations from `{python} f"{n_firms:,}"` unique firms across `{python} f"{n_countries}"` countries for fiscal years `{python} f"{year_min}"`–`{python} f"{year_max}"`. Firms are classified as SMEs using the EU definition: fewer than 250 employees or total assets not exceeding EUR 43 million. Micro-firms with total assets below EUR 1 million are excluded to avoid distortion from extreme ratios.
+
+## Variables
+
+| Variable | Field(s) | Formula | Role |
+|-------------------|----------|----------------------|----------------|
+| RoA | ib, at | ib / at | Dependent (Y) |
+| Capital Intensity | capx, at | capx.fillna(0) / at | Independent H1 |
+| Cash Holdings | che, at | che.fillna(0) / at | Independent H2 |
+| CapInt × Cash | — | capital_intensity × cash_holdings | Interaction |
+| Firm Size | at | log(at) | Control |
+| Leverage | dltt, at | dltt / at | Control |
+
+All continuous variables are winsorized at the 1st and 99th percentiles to mitigate the influence of extreme outliers [@wilcoxIntroductionRobustEstimation2012].
+
+## Estimation
+
+The baseline model is estimated using two-way fixed effects (TWFE) panel regression with firm and year fixed effects [@wooldridgeEconometricAnalysisCross2010]:
+
+$$RoA_{it} = \beta_1 CapInt_{it} + \beta_2 Cash_{it} + \gamma X_{it} + \alpha_i + \delta_t + \varepsilon_{it}$$
+
+where $\alpha_i$ represents firm fixed effects absorbing time-invariant unobserved heterogeneity, $\delta_t$ represents year fixed effects capturing common macroeconomic shocks, and $X_{it}$ is a vector of control variables. Standard errors are clustered at the firm level to account for within-firm serial correlation [@petersenEstimatingStandardErrors2009]. An interaction model adds a capital intensity × cash holdings term to explore whether cash reserves moderate the effect of capital intensity.
+
+# Results
+
+```{python}
+#| label: tbl-regression
+#| tbl-cap: "Regression results. Standard errors clustered by firm. * p<0.10, ** p<0.05, *** p<0.01."
+
+def fmt(b, p):
+    if pd.isna(b) or pd.isna(p):
+        return ''
+    stars = '***' if p < 0.01 else '**' if p < 0.05 else '*' if p < 0.10 else ''
+    return f"{b:.4f}{stars}"
+
+display_vars = ['capital_intensity', 'cash_holdings', 'capint_x_cash', 'ln_at', 'leverage']
+rows = []
+for var in display_vars:
+    if var in results.index:
+        row = {'Variable': var}
+        if 'OLS' in results.columns:
+            row['(1) OLS'] = fmt(results.loc[var, 'OLS'], results.loc[var, 'OLS_p'])
+        if 'FE' in results.columns:
+            row['(2) TWFE'] = fmt(results.loc[var, 'FE'], results.loc[var, 'FE_p'])
+        if 'FE_interact' in results.columns:
+            row['(3) TWFE+Int'] = fmt(results.loc[var, 'FE_interact'], results.loc[var, 'FE_int_p'])
+        rows.append(row)
+
+pd.DataFrame(rows).set_index('Variable')
+```
+
+![Main relationship between independent variables and RoA.](output/figures/main_relationship.png){width=90%}
+
+**H1 — Capital Intensity and Performance.** The TWFE model yields a coefficient of `{python} f"{b_capint}"` (p < 0.001) for capital intensity, indicating a statistically significant negative relationship with RoA. A one-unit increase in capital intensity is associated with a `{python} f"{abs(b_capint)}"` decrease in RoA, controlling for firm size, leverage, and unobserved firm and time heterogeneity. This supports the TCE prediction that high asset specificity reduces SME performance. **H1 is supported.**
+
+**H2 — Cash Holdings and Performance.** The coefficient on cash holdings is `{python} f"{b_cash}"` (p = `{python} f"{p_cash}"`), indicating a statistically significant positive effect on RoA. SMEs with higher cash reserves exhibit better performance, consistent with the Dynamic Capabilities prediction that liquidity enables effective seizing of opportunities. **H2 is supported.**
+
+**Interaction Effect.** The capital intensity × cash holdings interaction is significant and negative (`{python} f"{b_interact}"`, p < 0.001), suggesting that cash holdings do not buffer the negative effect of capital intensity. Rather, firms that are simultaneously capital-intensive and cash-rich show worse performance, potentially indicating inefficient resource allocation.
+
+**OLS vs. Fixed Effects.** The substantial differences between OLS and TWFE estimates — notably, cash holdings shifts from negative (OLS) to positive (TWFE) — demonstrate the importance of controlling for unobserved firm-level heterogeneity. The OLS estimates suffer from omitted variable bias, as unobserved firm characteristics confound the cross-sectional relationship.
+
+# Discussion and Conclusion
+
+This study examined how capital intensity and cash holdings affect the performance of SMEs using two-way fixed effects panel regression. Both hypotheses were supported.
+
+The negative effect of capital intensity on RoA is consistent with TCE predictions: high asset specificity binds SME resources and reduces the flexibility needed to adapt to changing market conditions [@williamsonChapter3Transaction1989]. This finding has practical implications for SME managers, suggesting that investments in physical assets should be carefully weighed against the resulting loss of operational flexibility. The result also aligns with the broader literature on financial constraints and firm size, which documents that smaller firms are disproportionately affected by resource rigidity [@beckFinancialLegalConstraints2005].
+
+The positive effect of cash holdings on RoA aligns with the Dynamic Capabilities framework [@teeceExplicatingDynamicCapabilities2007] and the Pecking Order Theory [@myersCorporateFinancingInvestment1984]. For SMEs facing information asymmetries in capital markets, internal liquidity is not idle capital but rather a strategic resource that enables timely response to opportunities and threats. This is consistent with prior findings that cash holdings are especially valuable for financially constrained firms [@denisFinancialConstraintsInvestment2010].
+
+To answer the research question directly: capital intensity reduces SME performance by binding resources in inflexible physical assets, while cash holdings improve performance by enabling strategic flexibility. These effects are robust to the inclusion of firm and time fixed effects.
+
+This study has two main limitations. First, the SME classification relies on employee count and total assets from Compustat Global, which covers only listed firms. Private SMEs — which constitute the vast majority of the SME population — may exhibit different resource-performance relationships. Second, capital intensity is measured as a ratio (capx/at) and does not capture the nature or quality of the investment, which may vary substantially across industries and countries.
+
+Future research should extend this analysis to private firm databases such as Orbis or Amadeus and examine whether the capital intensity-performance relationship varies across industries with different levels of asset specificity.
+
+# References
+
+::: {#refs}
+:::
