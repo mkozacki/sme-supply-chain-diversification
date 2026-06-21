@@ -5,7 +5,7 @@
 
 ## Research Question
 
-Wie beeinflussen Capital Intensity und Cash Holdings die Performance europäischer KMU?
+Wie beeinflussen Capital Intensity und Cash Holdings die Performance von KMU?
 
 ## Theoretical Framework
 
@@ -53,6 +53,6 @@ Höhere Cash Holdings führen zu besserer Performance bei KMU.
 | License | WRDS subscriber agreement |
 | Fiscal years | 2015–2024 |
 | Raw rows | 338,464 |
-| Clean rows | 70,718 |
-| Firms | 10,703 |
+| Clean rows | 69,528 |
+| Firms | 10,664 |
 | Countries | 103 |
